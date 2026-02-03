@@ -3,136 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر العضويات - النسخة النهائية</title>
-<script src="https://www.paypal.com/sdk/js?client-id=AeKNQG7kjUO21ZMBxeRSvaE5A6skdfnKxKduBbxudc5ntWfC7ZYGsRM_-PkKm7JOhISmpQkkJT7ajo4h&currency=USD"></script>
- 
+    <title>متجر فريق انفلاتي AnFLaTy</title>
+    <script src="https://www.paypal.com/sdk/js?client-id=AeKNQG7kjUO21ZMBxeRSvaE5A6skdfnKxKduBbxudc5ntWfC7ZYGsRM_-PkKm7JOhISmpQkkJT7ajo4h&currency=USD"></script> 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --std-color: #cd7f32; --pre-color: #c0c0c0; --ult-color: #ffd700;
-            --bg-dark: #0d0d0d; --card-bg: #1a1a1a;
-            --accent-blue: #00d4ff; /* لون بديل للأحمر */
+        :root { 
+            --bg: #000000; 
+            --neon-blue: #00f2ff; 
+            --card-bg: #0a0a0a;
+            --text-gray: #b0b0b0;
         }
-        body { font-family: 'Cairo', sans-serif; background: var(--bg-dark); color: white; margin: 0; text-align: center; }
-        header { padding: 50px 20px; border-bottom: 1px solid #333; }
-        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 40px 20px; }
         
-        .card {
-            background: var(--card-bg); border-radius: 20px; padding: 25px; width: 280px;
-            border: 1px solid #333; transition: transform 0.3s; position: relative;
-        }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent-blue); }
-        
-        .price { font-size: 2.2rem; font-weight: bold; margin: 10px 0; }
-        .price span { font-size: 0.9rem; color: #888; }
-        
-        /* تنبيه المواتر باللون الأزرق بدلاً من الأحمر */
-        .note { color: var(--accent-blue); font-size: 0.85rem; margin-bottom: 15px; font-weight: bold; }
-        
-        .features { list-style: none; padding: 0; text-align: right; font-size: 0.95rem; line-height: 1.8; }
-        .features li::before { content: "🔹 "; margin-left: 5px; }
-
-        /* رسالة النجاح */
-        #success-msg {
-            display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            background: #28a745; color: white; padding: 15px 35px; border-radius: 8px;
-            z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.5); font-weight: bold;
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background: var(--bg); 
+            color: white; 
+            margin: 0; 
+            text-align: center;
         }
 
-        #notification-area { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
-        .toast { background: #2c2c2c; color: white; padding: 15px; margin-top: 10px; border-radius: 8px; border-right: 4px solid var(--accent-blue); animation: slideIn 0.4s; }
-        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        /* تعليمات الاشتراك */
+        .instructions {
+            background: rgba(0, 242, 255, 0.05);
+            border: 1px solid var(--neon-blue);
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+        }
+        .instructions h3 { color: var(--neon-blue); margin-top: 0; }
+        .instructions p { font-size: 1.1rem; margin: 5px 0; }
+
+        header { padding: 60px 20px; border-bottom: 1px solid #1a1a1a; }
+        header h1 { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); font-size: 2.5rem; }
+
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 40px 20px; }
+        
+        .card { 
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            padding: 30px; 
+            width: 300px; 
+            border: 1px solid #222; 
+            transition: 0.4s;
+            position: relative;
+        }
+        .card:hover { 
+            border-color: var(--neon-blue); 
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.3);
+            transform: translateY(-10px);
+        }
+
+        .price { font-size: 2.5rem; font-weight: bold; margin: 15px 0; color: #fff; }
+        .price span { font-size: 1rem; color: var(--text-gray); }
+
+        .limit-tag { 
+            background: rgba(0, 242, 255, 0.1); 
+            color: var(--neon-blue); 
+            padding: 5px 15px; 
+            border-radius: 50px; 
+            font-size: 0.85rem; 
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .features { list-style: none; padding: 0; text-align: right; margin-bottom: 30px; }
+        .features li { margin-bottom: 12px; color: var(--text-gray); }
+        .features li::before { content: " "; color: var(--neon-blue); }
+
+        /* نافذة الكود */
+        #verification-box {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: #050505; border: 2px solid var(--neon-blue); padding: 40px; border-radius: 20px;
+            z-index: 3000; box-shadow: 0 0 60px rgba(0, 242, 255, 0.5); width: 90%; max-width: 500px;
+        }
+        .v-code { 
+            font-size: 2rem; color: #fff; letter-spacing: 5px; margin: 25px 0; 
+            background: #000; padding: 20px; border: 1px dashed var(--neon-blue); 
+            cursor: pointer; text-shadow: 0 0 10px var(--neon-blue);
+        }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2999; }
+        
+        .discord-link { color: var(--neon-blue); text-decoration: none; font-weight: bold; }
+        .btn-close { 
+            background: var(--neon-blue); border: none; padding: 12px 30px; 
+            border-radius: 8px; cursor: pointer; font-weight: bold; font-family: 'Cairo'; color: #000;
+        }
     </style>
 </head>
 <body>
 
-    <div id="success-msg">✅ تم التحقق من الدفع بنجاح! شكراً لك.</div>
+    <div class="overlay" id="overlay"></div>
+    
+    <div id="verification-box">
+        <h2 style="color: var(--neon-blue);">✅ اكتملت العملية!</h2>
+        <p>اضغط على الكود لنسخه ثم أرسله لادارة السيرفر عبر الرابط:</p>
+        <div class="v-code" id="final-code" onclick="copyCode()">------</div>
+        <a href="https://discord.gg/DVKJ4RJHt7" target="_blank" class="discord-link">رابط الديسكورد الرسمي</a>
+        <br><br>
+        <button class="btn-close" onclick="location.reload()">إغلاق</button>
+    </div>
 
     <header>
-        <h1>💎 العضويات الملكية</h1>
-        <p style="color: #aaa;">معرفات (ID) دائمة تبدأ من 160</p>
+        <h1>متجر فريق انفلاتي AnFLaTy STORE</h1>
+        <div class="instructions">
+            <h3>تعليمات الاشتراك:</h3>
+            <p>1. حدد الباقة المناسبة لك من الأسفل.</p>
+            <p>2. قم بإتمام عملية الدفع عبر PayPal.</p>
+            <p>3. <b>سيظهر لك كود تلقائي</b>، قم بنسخه وإرساله لإدارة السيرفر في الديسكورد لتفعيل حسابك.</p>
+        </div>
     </header>
 
     <div class="container">
         <div class="card">
-            <h2 style="color: var(--std-color)">ستاندر</h2>
+            <h2 style="color: #cd7f32;">ستاندر</h2>
             <div class="price">5 <span>ريال</span></div>
-            <div class="note">صلاحية الموتر الحصري: شهر</div>
+            <div class="limit-tag">المدة: شهر واحد فقط</div>
             <ul class="features">
-                <li>IDثلاثي لمده  شهر</li>
-                <li>اختيار موتر واحد</li>
-                <li>تسجيل فوري</li>
+                <li>ID ثلاثي (مؤقت لشهر)</li>
+                <li>موتر حصري (مؤقت لشهر)</li>
+                <li>تفعيل يدوي عبر الإدارة</li>
             </ul>
-            <div id="btn-std"></div>
+            <div id="paypal-std"></div>
         </div>
 
         <div class="card">
-            <h2 style="color: var(--pre-color)">بريميوم</h2>
+            <h2 style="color: #c0c0c0;">بريميوم</h2>
             <div class="price">15 <span>ريال</span></div>
-            <div class="note">صلاحية المواتر الحصرية: شهر</div>
+            <div class="limit-tag">المدة: شهر واحد فقط</div>
             <ul class="features">
-                <li>ID ثنائي لمده شهر</li>
-                <li>اختيار موترين خاصين</li>
-                <li>دعم فني سريع</li>
+                <li>ID ثنائي (مؤقت لشهر)</li>
+                <li>موترين خاصين (مؤقت لشهر)</li>
+                <li>أولوية في الدعم الفني</li>
             </ul>
-            <div id="btn-pre"></div>
+            <div id="paypal-pre"></div>
         </div>
 
         <div class="card">
-            <h2 style="color: var(--ult-color)">التمت</h2>
+            <h2 style="color: var(--neon-blue);">التمت</h2>
             <div class="price">35 <span>ريال</span></div>
-            <div class="note">صلاحية المواتر الحصرية: شهر</div>
+            <div class="limit-tag">المدة: شهر واحد فقط</div>
             <ul class="features">
-                <li>ID أحادي لمده شهر</li>
-                <li>اختيار 5 مواتر خاصة</li>
-                <li>أولوية دخول ودعم</li>
+                <li>ID أحادي (مؤقت لشهر)</li>
+                <li>5 مواتر خاصة (مؤقت لشهر)</li>
+                <li>رتبة خاصة في الديسكورد</li>
             </ul>
-            <div id="btn-ult"></div>
+            <div id="paypal-ult"></div>
         </div>
     </div>
 
-    <div id="notification-area"></div>
-
     <script>
-        function showSuccessEffect(tier) {
-            document.getElementById('success-msg').style.display = 'block';
-            const area = document.getElementById('notification-area');
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `🌟 مبروك! تم شراء باقة <b>${tier}</b> بنجاح.`;
-            area.appendChild(toast);
-            
-            setTimeout(() => { 
-                document.getElementById('success-msg').style.display = 'none';
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 500);
-            }, 6000);
+        function copyCode() {
+            const code = document.getElementById('final-code').innerText;
+            navigator.clipboard.writeText(code);
+            alert("تم نسخ الكود بنجاح: " + code);
         }
 
-        const setupPaypal = (elementId, amount, tier) => {
+        function paymentSuccess(tier) {
+            const randomCode = tier.substring(0,3).toUpperCase() + "-" + Math.random().toString(36).substr(2, 6).toUpperCase();
+            document.getElementById('final-code').innerText = randomCode;
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('verification-box').style.display = 'block';
+        }
+
+        const renderBtn = (id, amount, tier) => {
             paypal.Buttons({
-                style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'pay' },
+                style: { shape: 'pill', color: 'blue' },
                 createOrder: (data, actions) => {
                     return actions.order.create({
                         purchase_units: [{ amount: { value: (amount / 3.75).toFixed(2) } }]
                     });
                 },
                 onApprove: (data, actions) => {
-                    return actions.order.capture().then(details => {
-                        showSuccessEffect(tier);
-                    });
+                    return actions.order.capture().then(() => { paymentSuccess(tier); });
                 }
-            }).render(elementId);
+            }).render(id);
         };
 
-        setupPaypal('#btn-std', 5, 'ستاندر');
-        setupPaypal('#btn-pre', 15, 'بريميوم');
-        setupPaypal('#btn-ult', 35, 'التمت');
+        renderBtn('#paypal-std', 5, 'Standard');
+        renderBtn('#paypal-pre', 15, 'Premium');
+        renderBtn('#paypal-ult', 35, 'Ultimate');
     </script>
 </body>
 </html>
-
-
-
-
-
